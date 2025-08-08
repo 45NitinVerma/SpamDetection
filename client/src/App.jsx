@@ -7,12 +7,14 @@ function App() {
   const [prediction, setPrediction] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const appUrl = import.meta.env.VITE_APP_URL || "http://localhost:5000";
+
   const handlePredict = async () => {
     if (!message.trim()) return alert("Please enter a message");
 
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/predict", {
+      const response = await axios.post(`${appUrl}/predict`, {
         message,
       });
 
