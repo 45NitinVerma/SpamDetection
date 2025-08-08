@@ -1,22 +1,30 @@
 import nltk
 import os
+import shutil
 import pickle
 import string
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from nltk.stem.porter import PorterStemmer
 
-# Set up NLTK runtime path
+# NLTK path for Render
 nltk_path = os.path.join(os.getcwd(), 'nltk_data')
 os.environ["NLTK_DATA"] = nltk_path
 nltk.data.path.append(nltk_path)
 
-# Force download required data (complete)
-nltk.download('punkt', download_dir=nltk_path)
-nltk.download('stopwords', download_dir=nltk_path)
-from nltk.corpus import stopwords
+def force_download_nltk():
+    # Remove corrupted punkt if any
+    punkt_dir = os.path.join(nltk_path, 'tokenizers', 'punkt')
+    if os.path.exists(punkt_dir):
+        shutil.rmtree(punkt_dir, ignore_errors=True)
+
+    nltk.download('punkt', download_dir=nltk_path, force=True)
+    nltk.download('stopwords', download_dir=nltk_path, force=True)
+
+force_download_nltk()
 
 from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 
 app = Flask(__name__)
 CORS(app)
