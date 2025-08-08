@@ -11,15 +11,9 @@ nltk_path = os.path.join(os.getcwd(), 'nltk_data')
 nltk.data.path.append(nltk_path)
 
 def ensure_nltk_data():
-    try:
-        nltk.data.find('tokenizers/punkt')
-    except LookupError:
-        nltk.download('punkt', download_dir=nltk_path)
-
-    try:
-        nltk.data.find('corpora/stopwords')
-    except LookupError:
-        nltk.download('stopwords', download_dir=nltk_path)
+    # Download the entire 'punkt' package including punkt_tab
+    nltk.download('punkt', download_dir=nltk_path)
+    nltk.download('stopwords', download_dir=nltk_path)
 
 ensure_nltk_data()
 
