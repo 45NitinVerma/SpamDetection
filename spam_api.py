@@ -1,21 +1,20 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import pickle
-import string
 import nltk
 import os
+import pickle
+import string
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from nltk.stem.porter import PorterStemmer
 
-# Set up and download NLTK data
+# Set up NLTK runtime path
 nltk_path = os.path.join(os.getcwd(), 'nltk_data')
+os.environ["NLTK_DATA"] = nltk_path
 nltk.data.path.append(nltk_path)
 
-def ensure_nltk_data():
-    # Download the entire 'punkt' package including punkt_tab
-    nltk.download('punkt', download_dir=nltk_path)
-    nltk.download('stopwords', download_dir=nltk_path)
-
-ensure_nltk_data()
+# Force download required data (complete)
+nltk.download('punkt', download_dir=nltk_path)
+nltk.download('stopwords', download_dir=nltk_path)
+from nltk.corpus import stopwords
 
 from nltk.corpus import stopwords
 
