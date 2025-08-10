@@ -19,6 +19,7 @@ def force_download_nltk():
         shutil.rmtree(punkt_dir, ignore_errors=True)
 
     nltk.download('punkt', download_dir=nltk_path, force=True)
+    nltk.download('punkt_tab', download_dir=nltk_path, force=True)
     nltk.download('stopwords', download_dir=nltk_path, force=True)
 
 force_download_nltk()
